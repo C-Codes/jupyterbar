@@ -12,7 +12,7 @@ OPTIONS = {
     'plist': {
         'LSUIElement': True,
     },
-    'packages': ['rumps'],
+    'packages': ['rumps'], #, 'appdirs'
  }
 
 setup(
