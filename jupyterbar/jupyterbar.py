@@ -45,6 +45,40 @@ class JupyterStatusBarApp(rumps.App):
         notebook_path = str(response.text)
         self.jp_handler.set_notebook_dir(notebook_path)
 
+    @rumps.clicked("Set $PATH")
+    def prefs(self, _):
+        #rumps.alert("No preferences available!")
+        window = rumps.Window(message='Set $PATH ennvironment variable', title='JupiterBar Preferences',
+                              default_text=self.jp_handler.get_path(),
+                              ok=None, cancel=None, dimensions=(220, 24))
+
+        response = window.run()
+        if (not response.clicked is 1):
+            return
+
+        path = str(response.text)
+        self.jp_handler.set_path(path)
+
+    @rumps.clicked("Set $PYTHONPATH")
+    def prefs(self, _):
+        #rumps.alert("No preferences available!")
+        window = rumps.Window(message='Set $PYTHONPATH ennvironment variable', title='JupiterBar Preferences',
+                              default_text=self.jp_handler.get_pythonpath(),
+                              ok=None, cancel=None, dimensions=(220, 24))
+
+        response = window.run()
+        if (not response.clicked is 1):
+            return
+
+        python_path = str(response.text)
+        self.jp_handler.set_pythonpath(python_path)
+        
+    @rumps.clicked("Reset Settings")
+    def prefs(self, _):
+        settings_file_path = self.jp_handler.reset_settings()
+        time_st = datetime.datetime.fromtimestamp(time.time()).strftime('%H:%M:%S') #'%Y-%m-%d %H:%M:%S'
+        rumps.notification("jupyter "+str(time_st), "Settings file has been reset.", str(settings_file_path))
+
     @rumps.clicked("Status")
     def status(self, _):
         '''

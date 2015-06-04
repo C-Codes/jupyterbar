@@ -2,7 +2,7 @@
 
 from __future__ import print_function
 
-import os
+import os, signal
 import subprocess
 
 import appdirs
@@ -12,10 +12,12 @@ import xml.dom.minidom as minidom
 import dicttoxml
 
 class Jupyter:
-    def __init__(self, notebook=True, notebook_dir=""):
+    def __init__(self, notebook=True, notebook_dir="", path="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin", pythonpath="/usr/local/lib/python2.7/site-packages:/Library/Python/2.7/site-packages"):
         #settings
         self._notebook = notebook
         self._notebook_dir = notebook_dir
+        self._path = path
+        self._pythonpath = pythonpath
 
         #process handle
         self.jp_app = None
@@ -42,6 +44,20 @@ class Jupyter:
         self._notebook_dir = notebook_dir
         self.save_settings()
 
+    def set_path(self, path_var):
+        self._path = path_var
+        self.save_settings()
+
+    def get_path(self):
+        return self._path
+
+    def set_pythonpath(self, pythonpath_var):
+        self._path = pythonpath_var
+        self.save_settings()
+
+    def get_pythonpath(self):
+        return self._pythonpath
+
     def get_settings_file(self):
         usr_cfg_dir = appdirs.user_config_dir(appname="jupyterbar", appauthor="ccodes")
         if not os.path.isdir(usr_cfg_dir):
@@ -61,6 +77,8 @@ class Jupyter:
         settings_dict = dict()
         settings_dict["notebook"] = self._notebook
         settings_dict["notebook_dir"] = self._notebook_dir
+        settings_dict["path"] = self._path
+        settings_dict["pythonpath"] = self._pythonpath
 
         settings_xml = dicttoxml.dicttoxml(settings_dict)
 
@@ -69,6 +87,16 @@ class Jupyter:
 
         with open(usr_cfg_file, 'w') as f:
             f.write(settings_dom.toprettyxml())
+
+        return usr_cfg_file
+
+    def reset_settings(self):
+        self._notebook = True
+        self._notebook_dir = ""
+        self._path = "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin"
+        self._pythonpath = "/usr/local/lib/python2.7/site-packages:/Library/Python/2.7/site-packages"
+
+        return self.save_settings()
 
     def load_settings(self):
         '''
@@ -81,8 +109,14 @@ class Jupyter:
             tree = ElementTree.parse(usr_cfg_file)
             root = tree.getroot()
 
-            self._notebook = bool(root.find('notebook').text)
-            self._notebook_dir = str(root.find('notebook_dir').text)
+            if root.find('notebook'):
+                self._notebook = bool(root.find('notebook').text)
+            if root.find('notebook_dir'):
+                self._notebook_dir = str(root.find('notebook_dir').text)
+            if root.find('path'):
+                self._path = bool(root.find('path').text)
+            if root.find('pythonpath'):
+                self._pythonpath = bool(root.find('pythonpath').text)
 
             #print(root.tag, root.attrib)
             #for child in root:
@@ -124,11 +158,18 @@ class Jupyter:
             if os.path.isdir(self.get_notebook_dir()):
                 launch_cmd.append('--notebook-dir='+self.get_notebook_dir())
 
+        ipython_env = os.environ.copy()
+        ipython_env['PATH'] = "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin"
+        ipython_env['PYTHONPATH'] = "/usr/local/lib/python2.7/site-packages:"+ipython_env['HOME']+"/Library/Python/2.7/lib/python/site-packages"
+
         #print(launch_cmd)
+        #test_cmd = ['echo', '$PATH']
+        #test_cmd = ['set']
 
         try:
             # without the shell environment, somehow the process doesn't exit clean
-            self.jp_app = subprocess.Popen(' '.join(launch_cmd), shell=True)
+            #subprocess.Popen(' '.join(test_cmd), shell=True, executable="/bin/bash", env=ipython_env)
+            self.jp_app = subprocess.Popen(' '.join(launch_cmd), shell=True, executable="/bin/bash", env=ipython_env) #, preexec_fn=os.setsid
         except:
             print("ERROR: Starting jupyter (iPython) failed. (Are you sure your environment is setup properly?)")
 
@@ -147,8 +188,7 @@ class Jupyter:
         print("Exiting jupyter (iPython)")
 
         if not self.jp_app is None:
-            print("jupyter was defined")
-
+            #os.killpg(self.jp_app.pid, signal.SIGTERM)
             self.jp_app.terminate()
             self.jp_app.wait()
 
