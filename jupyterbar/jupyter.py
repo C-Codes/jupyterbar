@@ -70,7 +70,9 @@ class Jupyter:
         '''
         Saving settings from user config dir
         '''
+
         #print("Writing settings file")
+        #print("notebook-dir: " + self._notebook_dir)
 
         usr_cfg_file = self.get_settings_file()
 
@@ -79,6 +81,8 @@ class Jupyter:
         settings_dict["notebook_dir"] = self._notebook_dir
         settings_dict["path"] = self._path
         settings_dict["pythonpath"] = self._pythonpath
+
+        #print(settings_dict)
 
         settings_xml = dicttoxml.dicttoxml(settings_dict)
 
@@ -109,14 +113,14 @@ class Jupyter:
             tree = ElementTree.parse(usr_cfg_file)
             root = tree.getroot()
 
-            if root.find('notebook'):
+            if root.find('notebook') is not None:
                 self._notebook = bool(root.find('notebook').text)
-            if root.find('notebook_dir'):
+            if root.find('notebook_dir') is not None:
                 self._notebook_dir = str(root.find('notebook_dir').text)
-            if root.find('path'):
-                self._path = bool(root.find('path').text)
-            if root.find('pythonpath'):
-                self._pythonpath = bool(root.find('pythonpath').text)
+            if root.find('path') is not None:
+                self._path = str(root.find('path').text)
+            if root.find('pythonpath') is not None:
+                self._pythonpath = str(root.find('pythonpath').text)
 
             #print(root.tag, root.attrib)
             #for child in root:
