@@ -1,7 +1,7 @@
-[version](https://img.shields.io/pypi/v/jupyterbar.svg)](https://pypi.python.org/pypi/jupyterbar)
-[status](https://img.shields.io/pypi/status/jupyterbar.svg)](https://pypi.python.org/pypi/jupyterbar)
-[pyversions](https://img.shields.io/pypi/pyversions/jupyterbar.svg)](https://pypi.python.org/pypi/jupyterbar)
-[license](https://img.shields.io/pypi/l/jupyterbar.svg)](https://pypi.python.org/pypi/jupyterbar)
+[![Version](https://img.shields.io/pypi/v/jupyterbar.svg)](https://pypi.python.org/pypi/jupyterbar)
+[![Status](https://img.shields.io/pypi/status/jupyterbar.svg)](https://pypi.python.org/pypi/jupyterbar)
+[![PyVersions](https://img.shields.io/pypi/pyversions/jupyterbar.svg)](https://pypi.python.org/pypi/jupyterbar)
+[![License](https://img.shields.io/pypi/l/jupyterbar.svg)](https://pypi.python.org/pypi/jupyterbar)
 
 # jupyterbar
 
