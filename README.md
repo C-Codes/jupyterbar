@@ -1,10 +1,9 @@
+[![DonatePayPal](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=EYUGU5H2QCQVE)
+[![DonateGratipay](https://img.shields.io/gratipay/chrisidefix.svg)](https://gratipay.com/chrisidefix/)
 [![Version](https://img.shields.io/pypi/v/jupyterbar.svg)](https://pypi.python.org/pypi/jupyterbar)
 [![Status](https://img.shields.io/pypi/status/jupyterbar.svg)](https://pypi.python.org/pypi/jupyterbar)
 [![PyVersions](https://img.shields.io/pypi/pyversions/jupyterbar.svg)](https://pypi.python.org/pypi/jupyterbar)
 [![License](https://img.shields.io/pypi/l/jupyterbar.svg)](https://pypi.python.org/pypi/jupyterbar)
-
-[![DonatePayPal](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=EYUGU5H2QCQVE)
-[![DonateGratipay](https://img.shields.io/gratipay/chrisidefix.svg)](https://gratipay.com/chrisidefix/)
 
 # jupyterbar
 
