@@ -14,20 +14,31 @@ OPTIONS = {
     },
     'packages': ['rumps'], #, 'appdirs'
  }
+VERSION='0.1'
 
 setup(
     name='jupyterbar',
-    version='0.1',
+    version=VERSION,
     description='A little statusbar for http://jupyter.org (http://ipython.org/) on OS X written in Python.',
     license='MIT',
     author='Christoph Russ',
     author_email='chruss@gmx.de',
     url='https://github.com/C-Codes/jupyterbar',
-    download_url='',
+    download_url='https://github.com/C-Codes/jupyterbar/tarball/v'+VERSION,
     packages=['jupyterbar'],
     app=APP,
     data_files=DATA_FILES,
     options={'py2app': OPTIONS},
     setup_requires=['py2app'],
-    install_requires=['rumps'],
+    install_requires=['rumps', 'appdirs', 'dicttoxml'],
+    classifiers=[
+        'Development Status :: 3 - Alpha',
+        'Environment :: MacOS X',
+        'Framework :: IPython',
+        'License :: OSI Approved :: MIT License',
+        'Natural Language :: English',
+        'Operating System :: MacOS :: MacOS X',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 3',
+    ]
  )

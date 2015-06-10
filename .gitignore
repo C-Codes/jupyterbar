@@ -3,6 +3,8 @@ dist/
 .DS_Store
 .idea/
 *.py[co]
+*.eggs/
+*.egg-info/
 
 tests/
 
