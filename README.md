@@ -1,6 +1,7 @@
 # jupyterbar
 
 [![Join the chat at https://gitter.im/C-Codes/jupyterbar](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/C-Codes/jupyterbar?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 A little statusbar for http://jupyter.org (http://ipython.org) on OS X written in Python.
 
 # What to do?
